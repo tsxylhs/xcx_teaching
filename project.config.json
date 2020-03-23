@@ -1,0 +1,168 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": false,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": true,
+		"scopeDataCheck": false,
+		"uglifyFileName": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"miniprogramRoot": "dist/wx/",
+	"compileType": "miniprogram",
+	"appid": "wxc3240d4782d531c8",
+	"projectname": "xcx_teach",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 10,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/kind/main",
+					"pathName": "pages/kind/main",
+					"query": "kind",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/productDetail/main",
+					"pathName": "pages/productDetail/main",
+					"query": "detail",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/cart/main",
+					"pathName": "pages/cart/main",
+					"query": "cart",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/order/main",
+					"pathName": "pages/order/main",
+					"query": "order",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/orderDetail/main",
+					"pathName": "pages/orderDetail/main",
+					"query": "orderDetail",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/orderStatus/main",
+					"pathName": "pages/orderStatus/main",
+					"query": "orderStatus",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/orderCreator/main",
+					"pathName": "pages/orderCreator/main",
+					"query": "orderCreator",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/orderPaid/main",
+					"pathName": "pages/orderPaid/main",
+					"query": "orderPaid",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/supplierDetail/main",
+					"pathName": "pages/supplierDetail/main",
+					"query": "supplierDetail",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/supplierInf/main",
+					"pathName": "pages/supplierInf/main",
+					"query": "supplierInf",
+					"scene": null
+				},
+				{
+					"id": 10,
+					"name": "pages/restaurant/main",
+					"pathName": "pages/restaurant/main",
+					"query": "scene=shopId%3D1218817488335147008",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/user/main",
+					"pathName": "pages/user/main",
+					"query": "scene=shopId%3D1213022561416253440",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/user/main",
+					"pathName": "pages/user/main",
+					"query": "scene=shopId%3D1218817488335147008",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/addNotes/main",
+					"pathName": "pages/addNotes/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/applyQrcode/main",
+					"pathName": "pages/applyQrcode/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/order/main",
+					"pathName": "pages/order/main",
+					"scene": null
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,160 @@
+$font-family-base: -apple-system, Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+
+html {
+  font-family: $font-family-base;
+}
+
+.pf-display4,
+.pf-display3,
+.pf-display2,
+.pf-display1,
+.pf-headline,
+.pf-title,
+.pf-subhead,
+.pf-body2,
+.pf-body1,
+.pf-caption,
+.pf-menu,
+.pf-8,
+.pf-button {
+  font-family: $font-family-base;
+  -webkit-font-smoothing: antialiased;  /* OS X subpixel AA bleed bug */
+}
+
+.pf-code2,
+.pf-code1 {
+  font-family: $font-family-base;
+  -webkit-font-smoothing: antialiased;  /* OS X subpixel AA bleed bug */
+}
+
+/* Opt for better kerning for headers & other short labels. */
+.pf-display4,
+.pf-display3,
+.pf-display2,
+.pf-display1,
+.pf-headline,
+.pf-title,
+.pf-subhead,
+.pf-menu,
+.pf-button {
+  text-rendering: optimizeLegibility;
+}
+
+/*
+"Line wrapping only applies to Body, Subhead, Headline, and the smaller Display
+styles. All other styles should exist as single lines."
+*/
+.pf-display4,
+.pf-display3,
+.pf-title,
+.pf-caption,
+.pf-menu,
+.pf-button {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pf-display4 {
+  font-size: 112px;
+  font-weight: 300;
+  letter-spacing: -.044em;
+  line-height: 120px;
+}
+
+.pf-display3 {
+  font-size: 56px;
+  font-weight: 400;
+  letter-spacing: -.026em;
+  line-height: 60px;
+}
+
+.pf-display2 {
+  font-size: 45px;
+  font-weight: 400;
+  letter-spacing: -.018em;
+  line-height: 48px;
+}
+
+.pf-display1 {
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -.01em;
+  line-height: 40px;
+}
+
+.pf-headline {
+  font-size: 24px;
+  font-weight: 400;
+  //letter-spacing: -.012em;
+  line-height: 32px;
+}
+
+.pf-title {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 28px;
+  color: #000000;
+}
+.pf-18 {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  color: #000000;
+}
+
+.pf-subhead {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #000000;
+
+}
+
+.pf-body2 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.pf-body1 {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.pf-caption {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.011em;
+  line-height: 20px;
+}
+
+.pf-menu {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.pf-button {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.018em;
+  line-height: 24px;
+  text-transform: uppercase;
+}
+
+.pf-code2 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.pf-code1 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+}
+.pf-8 {
+  font-size: 8px;
+}

@@ -1,0 +1,16 @@
+{
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "onReachBottomDistance": 150,
+  "usingComponents": {
+    "van-button": "../../../static/vant/button/index",
+    "van-stepper": "../../../static/vant/stepper/index",
+    "van-toast": "../../../static/vant/toast/index",
+    "van-panel": "../../../static/vant/panel/index",
+    "van-icon": "../../../static/vant/icon/index",
+    "van-tag": "../../../static/vant/tag/index",
+    "van-search": "../../../static/vant/search/index",
+    "van-dropdown-menu": "../../../static/vantNew/dropdown-menu/index",
+    "van-dropdown-item": "../../../static/vantNew/dropdown-item/index"
+  }
+}

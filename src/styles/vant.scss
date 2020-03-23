@@ -1,0 +1,37 @@
+//.van-icon {
+//  display: block !important;
+//}
+//.van-tabbar {
+//  background-color:transparent !important;
+//}
+.order .van-tabs__wrap--scrollable .van-tab {
+  -webkit-flex: 0 0 20% !important;
+  flex: 0 0 20% !important;
+
+}
+
+
+.textarea .van-field__input {
+  min-height: 50px !important;
+  height: 50px !important;
+}
+
+//.van-cell {
+//  font-size: 13px !important
+//}
+
+
+.van-button {
+  height: 40px !important;
+  line-height: 38px !important;
+  border-radius: 25px !important;
+}
+
+
+.appointment .van-cell {
+  border: 1px solid #C36975 !important;
+  border-radius: 5px !important;
+}
+.appointment .van-button {
+  border-radius: 5px !important;
+}

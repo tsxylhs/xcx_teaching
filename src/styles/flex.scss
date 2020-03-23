@@ -1,0 +1,148 @@
+.flex-1 {
+  flex: 1;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.d-flex {
+  display: flex !important;
+}
+.df-row-ac {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+}
+
+.df-row-jc {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+}
+
+.df-row-je {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: end !important;
+}
+
+.df-row-js {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: start !important;
+}
+
+.df-row-as {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+}
+
+.df-row-ja {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-around !important;
+}
+
+.df-row-jb {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+}
+
+.df-row-as-ja {
+  @extend .df-row-as;
+  justify-content: space-around !important;
+}
+
+.df-row-as-jsta {
+  @extend .df-row-as;
+  justify-content: start !important;
+}
+
+.df-row-as-jc {
+  @extend .df-row-as;
+  justify-content: center !important;
+}
+
+.df-row-as-je {
+  @extend .df-row-as;
+  justify-content: end !important;
+}
+
+.df-row-ac-jb {
+  @extend .df-row-ac;
+  justify-content: space-between !important;
+}
+
+.df-row-ac-jc {
+  @extend .df-row-ac;
+  justify-content: center !important;
+}
+
+
+.df-row-ac-js {
+  @extend .df-row-ac;
+  justify-content: start !important;
+}
+
+.df-row-ac-ja {
+  @extend .df-row-ac;
+  justify-content: space-around !important;
+}
+
+.df-row-ac-je {
+  @extend .df-row-ac;
+  justify-content: flex-end !important;
+}
+
+.df-col-ac {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+.df-col-ac-jc {
+  @extend .df-col-ac;
+  justify-content: center !important;
+}
+.df-col-jb {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+.df-col-as {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.df-col-as-ja {
+  @extend .df-col-as;
+  justify-content: space-around !important;
+}
+
+.df-col-as-jc {
+  @extend .df-col-as;
+  justify-content: center !important;
+}
+
+.df-col-ac-jb {
+  @extend .df-col-ac;
+  justify-content: space-between !important;
+}
+
+.df-col-ac-jc {
+  @extend .df-col-ac;
+  justify-content: center !important;
+}
+
+.df-col-ac-js {
+  @extend .df-col-ac;
+  justify-content: start !important;
+}
+
+.df-col-ac-ja {
+  @extend .df-col-ac;
+  justify-content: space-around !important;
+}
