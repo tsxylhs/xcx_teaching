@@ -1,6 +1,10 @@
 <template lang="pug">
   .w-100
     nav-bar(:title="'我的学习笔记'" )
+    .df-row-ac-jc
+      .borRadius-30.df-row-ac-jb.bg-mine.px-15p.py-10p.text-white.w-30(@click="toaddnotes" style="position:fixed;bottom: 5%;")
+        .pf-subhead.text-white.text-center 添加新笔记
+        .add-res
     .w-100(v-if="isLogged")
       .df-col-ac-jc.text-dark(v-if="epOrder" style="margin-top: 200rpx;")
         .ep-order
@@ -60,6 +64,9 @@
     },
     watch: {},
     methods: {
+      toaddnotes () {
+        wx.navigateTo({url: '/pages/addNotes/main'})
+      },
       toDetail (ord) {
         wx.navigateTo({
           url: '/pages/addNotes/main?notesId=' + ord.id
