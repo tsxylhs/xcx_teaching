@@ -11,6 +11,10 @@
     "van-tag": "../../../static/vant/tag/index",
     "van-search": "../../../static/vant/search/index",
     "van-dropdown-menu": "../../../static/vantNew/dropdown-menu/index",
-    "van-dropdown-item": "../../../static/vantNew/dropdown-item/index"
+    "van-dropdown-item": "../../../static/vantNew/dropdown-item/index",
+    "van-popup": "../../../static/vant/popup/index",
+    "van-field": "../../../static/vant/field/index",
+    "van-cell-group": "../../../static/vant/cell-group/index",
+    "van-area": "../../../static/vant/area/index"
   }
 }

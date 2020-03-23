@@ -24,7 +24,7 @@
     data () {
       return {
         user: {},
-        title: '添加读书笔记',
+        title: '添加学习笔记',
         notes: {},
         userId: '',
         errMessage: {
@@ -84,7 +84,7 @@
       },
       getNotes (id) {
         API.notes.get(id).then((res) => {
-          this.title = '查看/修改读书笔记'
+          this.title = '查看/修改学习笔记'
           this.notes = res
         }).catch(() => {
         })

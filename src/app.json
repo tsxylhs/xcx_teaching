@@ -34,13 +34,7 @@
         "selectedIconPath": "static/tabs/home_current.png"
       },
       {
-        "text": "预约",
-        "pagePath": "pages/queue/main",
-        "iconPath": "static/images/yuyue.png",
-        "selectedIconPath": "static/images/yuyue-2.png"
-      },
-      {
-        "text": "读书笔记",
+        "text": "学习笔记",
         "pagePath": "pages/notes/main",
         "iconPath": "static/tabs/orders.png",
         "selectedIconPath": "static/tabs/orders_current.png"

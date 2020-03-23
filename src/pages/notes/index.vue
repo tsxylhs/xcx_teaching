@@ -1,6 +1,6 @@
 <template lang="pug">
   .w-100
-    nav-bar(:title="'我的读书笔记'" )
+    nav-bar(:title="'我的学习笔记'" )
     .w-100(v-if="isLogged")
       .df-col-ac-jc.text-dark(v-if="epOrder" style="margin-top: 200rpx;")
         .ep-order
