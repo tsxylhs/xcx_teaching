@@ -20,7 +20,7 @@
       .df-row
         van-panel(title='复习高数', desc='数列极限', status='待复习', use-footer-slot='')
           view 1.函数极限连续 ①正确理解函数的概念,了解函数的奇偶性、单调性、周期性和有界性,理解复合函数、反函数及隐函数的概念。②理解极限的概念,理解函数左、右极限的概念以及极限存在...
-          view(slot='footer')
+          div.w-100(slot='footer' style="text-align: right")
             van-button(size='small' @click="addpaly") 更新计划
             van-button(size='small', type='danger') 完成计划
     .shadow.borRadius-5.p-20p.mt-20p
