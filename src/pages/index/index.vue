@@ -1,6 +1,6 @@
 <template lang="pug">
   .w-100
-    nav-bar(:title="'ElB自助系统'")
+    nav-bar(:title="'辅助教学系统'")
     .bg-top.w-100.df-row-jc(style="position: relative")
       .bg-white.py-20p.w-90.border.borRadius-5.shadow.df-row-ac-jb.buttonBg(style="position: absolute;bottom:5%")
         .flex-1.df-col-ac.px-10p.border-right(@click="toLine")
