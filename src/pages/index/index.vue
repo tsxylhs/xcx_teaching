@@ -27,7 +27,7 @@
       .df-row-ac-jb
         .pf-subhead
       .df-row-jb.mt-10p
-        .df-col-ac.pointer(@click="toOrder(1)")
+        .df-col-ac.pointer(@click="tohomework()")
           .order1
           .text-dark.mt-2 作业
         .df-col-ac.pointer(@click="toOrder(2)")
@@ -92,16 +92,17 @@
         ],
         domain: [],
         data: Data,
-        shop: {
-          name: '未选择图书馆'
-        },
-        shopId: '0',
         address: '',
         filter: {p: 1, ps: 10},
         total: 0
       }
     },
     methods: {
+      tohomework () {
+        wx.navigateTo({
+          url: '/pages/user/main'
+        })
+      },
       addpaly () {
         this.addapplyFlag = true
       },

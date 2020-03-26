@@ -86,7 +86,7 @@
       },
       toLineUpShop () {
         wx.navigateTo({
-          url: '/pages/mybook/main'
+          url: '/pages/myhomework/main'
         })
       },
       toShop (id) {

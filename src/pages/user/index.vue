@@ -184,7 +184,7 @@
       toOrder (item) {
         getApp().globalData.tabIndex = item
         wx.switchTab({
-          url: '/pages/mybook/main'
+          url: '/pages/myhomework/main'
         })
       },
       toinfom () {

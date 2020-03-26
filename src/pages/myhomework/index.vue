@@ -1,10 +1,10 @@
 <template lang="pug">
   .w-100
-    nav-bar(title="我的借阅" :backVisible="true" :home-path="'/pages/index/main'")
+    nav-bar(title="我的作业" :backVisible="true" :home-path="'/pages/index/main'")
     .p-10p
 
       .mt-20p.df-col-ac-jc(v-if="domain.length === 0&&user")
-        span 暂无借阅图书
+        span 暂无作业
         span 好好学习，天天向上
       .first-padding
         .d-flex.p-20p.border-bottom.pa( v-if="domain.length !== 0" v-for="(item, index) in domain" :key="index" @click="onChange(item)")
@@ -16,12 +16,12 @@
               .fs-12.flex-1 {{item.library.name}}
             .df-row-jb.mt-10p.text-dark
               .fs-14.flex-1.text-overflow2 {{item.library.address}}
-              .fs-14.ml-10p(style="color:#0066CC" @click="deleteNotes(item)") 归还
-              .fs-14.ml-10p(style="color:#0066CC" @click="addNotes(item)") 添加笔记
+              .fs-14.ml-10p(style="color:#0066CC" @click="deleteNotes(item)") 完成
+              .fs-14.ml-10p(style="color:#0066CC" @click="addNotes(item)") 上传文件
       .w-100.mt-50p(v-if="!user")
         .df-col-ac.p-20p
           .login-none
-          .mt-10p 请先登录，以查看借阅。
+          .mt-10p 请先登录，以查看作业。
           button.btn-main.mt-10p(v-if="!user" open-type="getUserInfo" @getuserinfo="checkUser" lang="zh_CN" type="primary" round @click="checkUser") 微信授权登录
 
 
