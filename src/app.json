@@ -9,9 +9,11 @@
     "pages/user/main",
     "pages/appointment/main",
     "pages/queue/main",
+    "pages/test/main",
+    "pages/grade/main",
     "pages/myhomework/main",
+    "pages/errorMessage/main",
     "pages/queueOrderList/main",
-    "pages/login/main",
     "pages/infForm/main"
   ],
   "window": {

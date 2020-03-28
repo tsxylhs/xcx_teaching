@@ -33,8 +33,8 @@ function doLogin (t, reback) {
                   that.userInfo.code = res.code
                   console.log('携带 userinfo 登录', res)
                   API.login(that.userInfo).then((res) => {
-                    that.user = res
-                    wx.setStorageSync('user', res)
+                    that.user = res.data
+                    wx.setStorageSync('user', res.data)
                     reback()
                   }).catch(() => {
                   })

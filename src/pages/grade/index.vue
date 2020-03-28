@@ -1,41 +1,38 @@
 <template lang="pug">
   .w-100
-    nav-bar(:title="'我的学习笔记'" )
+    nav-bar(:title="'我的成绩'" :backVisible="true" :home-path="'/pages/index/main'")
     .w-100(v-if="isLogged")
-      .df-row-ac-jc
-        .borRadius-30.df-row-ac-jb.bg-mine.px-15p.py-10p.text-white.w-30(@click="toaddnotes" style="position:fixed;bottom: 5%;")
-          .pf-subhead.text-white.text-center 添加新笔记
-          .add-res
-      .df-col-ac-jc.text-dark(v-if="epOrder" style="margin-top: 200rpx;")
+      .df-col-ac-jc.text-dark(v-if="epOrder||!bind" style="margin-top: 200rpx;")
         .ep-order
-        .mt-10p.mr-20p 还没有笔记
+        .mt-10p.mr-20p 还没有成绩或者未绑定信息
       ul.last-border-2(v-if="!epOrder")
         li.pl-20p.py-20p(@click="toDetail(ord)" v-for="(ord,ins) in domain" :key="ins")
           .df-row-ac-jb.pr-20p
             .df-row-ac
               //.merchant
-              .pf-subheadp 笔记编号：{{ord.id}}
+              .pf-subheadp 成绩编号：{{ord.id}}
           .mt-10p.d-flex.pr-20p.border-bottom.py-10p
             .ml-10p.py-5p.flex-1
               .df-row-jb.pf-subhead
-                .pf-subhead 标题：{{ord.title}}
+                .pf-subhead 学科：{{ord.courseName}}
                 .ml-20p
                   div
-                    span 《{{ord.bookName}}》
+                    span 总成绩: {{ord.courseGrade}}
                   div.fr.text-dark.fs-12
-                    span {{ord.bookAuthor}}
+                    span 代课老师 {{ord.teachName}}
               .d-flex.fs-12.mt-10p.text-dark
-                span 创建时间:
-                span.ml-5p {{ord.createdAt}}
+                span 考试成绩:
+                span.ml-5p {{ord.testScores}}
+              .d-flex.fs-12.mt-10p.text-dark
+                span 签到成绩:
+                span.ml-5p {{ord.signin}}
               .df-row-ac.fs-12.text-dark.mt-5p
-                span 更新时间:
-                span.ml-5p {{ord.updatedAt}}
-              .df-row
-                van-button(size="large" type="warning" round custom-class="btn-black" @click.stop="deleteNotes(ord.id)") 删除
+                span 课堂表现成绩:
+                span.ml-5p {{ord.showGrades}}
     .w-100.mt-50p(v-else)
       .df-col-ac.p-20p
         .login-none
-        .mt-10p 请先登录，以查看笔记。
+        .mt-10p 请先登录，以查看成绩。
         button.btn-main.mt-10p( open-type="getUserInfo" @getuserinfo="checkUser" lang="zh_CN" type="primary" round @click="checkUser") 微信授权登录
 
 </template>
@@ -56,7 +53,8 @@
         data: Data,
         domain: [],
         user: {},
-        epOrder: true
+        epOrder: true,
+        bind: true
       }
     },
     onShareAppMessage (object) {
@@ -67,12 +65,7 @@
     },
     watch: {},
     methods: {
-      deleteNotes (id) {
-        API.notes.delete(id).then((res) => {
-          this.loadNotes()
-        }).catch(() => {
-        })
-      },
+
       toaddnotes () {
         wx.navigateTo({url: '/pages/addNotes/main'})
       },
@@ -84,10 +77,17 @@
       checkUser (e) {
         loginInfo(e, this, this.loadNotes)
       },
-      loadNotes (options) {
+      loadgrade (options) {
         let user = wx.getStorageSync('user')
-        var params = {'userId': user.id}
-        API.notes.list(params).then(res => {
+        if (user.studentId === 0) {
+          return
+        }
+        var param = {
+          conditions: {
+            userId: this.user.studentId
+          }
+        }
+        API.grade.list(param).then(res => {
           this.isLogged = true
           if (res.data === undefined || res.data.length <= 0) {
             this.epOrder = true
@@ -108,13 +108,14 @@
         })
       }
     },
-    mounted () {
-      this.loadNotes()
-    },
     onShow () {
       let user = wx.getStorageSync('user')
+      this.user = user
+      this.loadgrade()
       if (user) {
-        this.loadNotes()
+        if (user.studentId === 0 || user.studentId === '') {
+          this.bind = false
+        }
         this.isLogged = true
       }
     }

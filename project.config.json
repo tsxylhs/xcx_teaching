@@ -160,6 +160,19 @@
 					"id": -1,
 					"name": "pages/order/main",
 					"pathName": "pages/order/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/user/main",
+					"pathName": "pages/user/main",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/myhomework/main",
+					"pathName": "pages/myhomework/main",
 					"scene": null
 				}
 			]

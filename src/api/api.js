@@ -3,11 +3,18 @@ import fly from './request'
 
 var API = {}
 
+API.homework = crud('/homework')
+API.grade = crud('/grade')
+API.wxUser = crud('/wxUser')
+API.wxError = crud('/errormessage')
+API.remind = crud('/remind')
+API.signin = crud('/signin')
+
 API.library = crud('/v1/library')
 API.books = crud('/v1/book')
 API.table = crud('/v1/table')
 API.message = crud('v1/message')
-API.notes = crud('v1/notes')
+API.notes = crud('/notes')
 API.cabinet = crud('v1/cabinet')
 API.mybooks = crud('v1/mybooks')
 API.categories = crud('/v1/categories')

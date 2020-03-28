@@ -1,4 +1,5 @@
-import fly from './request'
+import request from './request'
+
 export default function crud (prefix) {
   var path = prefix
   if (path.indexOf('/') !== 0) {
@@ -7,24 +8,20 @@ export default function crud (prefix) {
 
   return {
     list: function (params) {
-      console.log('api list')
-      return fly.get(path, params)
-    },
-    filter: function (params) {
       console.log('api filter')
-      return fly.get(path, { params: params })
+      return request.post(path + '/list', params)
     },
     delete: function (id) {
-      return fly.delete(path + '/' + id)
+      return request.delete(path + '/' + id)
     },
     get: function (id) {
-      return fly.get(path + '/' + id)
+      return request.get(path + '/' + id)
     },
     create: function (domain) {
-      return fly.post(path, domain)
+      return request.post(path + '/add', domain)
     },
     update: function (domain) {
-      return fly.put(path + '/' + domain.id, domain)
+      return request.put(path + '/' + domain.id, domain)
     }
   }
 }

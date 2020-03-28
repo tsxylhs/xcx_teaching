@@ -11,6 +11,7 @@
     "van-search": "../../../static/vant/search/index",
     "van-dropdown-menu": "../../../static/vantNew/dropdown-menu/index",
     "van-dropdown-item": "../../../static/vantNew/dropdown-item/index",
-    "van-tag": "../../../static/vant/tag/index"
+    "van-tag": "../../../static/vant/tag/index",
+    "van-upload": "../../../static/vant/upload/index"
   }
 }

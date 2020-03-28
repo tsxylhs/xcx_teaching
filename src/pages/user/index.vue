@@ -9,11 +9,6 @@
             div
               .df-row-ac
                 .pf-title {{user.nickName}}
-                .border.px-10p.py-5p.ml-10p.text-dark.fs-12( v-if="disable" plain size="mini" @click="toInf") 修改
-              //.df-row-ac.mt-5p
-                .merchant
-                .text-muted.ml-5p(v-if="!shopId")  当前:{{user.shopName || '未设置门店'}}
-                .text-muted.ml-5p(v-if="shop.name")  当前:{{shop.name || '未设置门店'}}
             div
               button.btn-main(v-if="!user" open-type="getUserInfo" @getuserinfo="checkUser" lang="zh_CN" type="primary" round @click="checkUser") 微信授权登录
         .shadow.borRadius-5.p-20p
@@ -23,40 +18,35 @@
             .df-col-ac.pointer(@click="toOrder(1)")
               .major
               .text-dark.mt-2 年级
-              .text-dark.mt-2 --
+              .text-dark.mt-2(v-if="user.className") {{user.className}}
+              .text-dark.mt-2(v-else) --
             .df-col-ac.pointer(@click="toOrder(2)")
               .student
               .text-dark.mt-2 姓名
-              .text-dark.mt-2 --
+              .text-dark.mt-2(v-if="user.userName") {{user.userName}}
+              .text-dark.mt-2(v-else) --
             .df-col-ac.pointer(@click="toOrder(4)")
               .point
-              .text-dark.mt-2 绩点
-              .text-dark.mt-2 --
-
-      .pl-20p
+              .text-dark.mt-2 目标绩点
+              .text-dark.mt-2(v-if="user.userName") 8
+              .text-dark.mt-2(v-else) --
       .pl-20p
         .df-row-ac-jb.py-20p.border-bottom(@click="toinfom")
           .df-row-ac
-            .delivery
-            span.ml-10p.fs-16 修改个人信息
+            .edit
+            span.ml-10p.fs-16 绑定学号信息
           .arrow.pr-20p
       .pl-20p
         .df-row-ac-jb.py-20p.border-bottom(@click="toAbout")
           .df-row-ac
-            .info
+            .aboutdr
             span.ml-10p.fs-16 关于本程序
           .arrow.pr-20p
       .pl-20p
-        .df-row-ac-jb.py-20p.border-bottom(@click="toAbout")
+        .df-row-ac-jb.py-20p.border-bottom(@click="toAdderror")
           .df-row-ac
-            .info
-            span.ml-10p.fs-16 更多信息
-          .arrow.pr-20p
-      .pl-20p
-        .df-row-ac-jb.py-20p.border-bottom(@click="toAbout")
-          .df-row-ac
-            .info
-            span.ml-10p.fs-16 绑定学号
+            .customer
+            span.ml-10p.fs-16 提交错误日志及意见
           .arrow.pr-20p
     van-toast#van-toast
 </template>
@@ -71,7 +61,7 @@
       NavBar
     },
     onShareAppMessage (object) {
-      object.title = '在线Elb'
+      object.title = '教学辅助系统'
       object.path = '/pages/index/main'
       object.imageUrl = 'https://mtms.letsit.vip/share.jpg'
       return object
@@ -91,7 +81,6 @@
     },
     methods: {
       saveImage () {
-        // debugger
         var that = this
         that.canvasDialog = false
         wx.saveImageToPhotosAlbum({
@@ -112,12 +101,6 @@
       },
       shareImage () {
         let url = '/pages/restaurantCard/main'
-        wx.navigateTo({
-          url: url
-        })
-      },
-      shareQrcode () {
-        let url = '/pages/shareCard/main?shopId=' + this.shopId
         wx.navigateTo({
           url: url
         })
@@ -185,6 +168,11 @@
         getApp().globalData.tabIndex = item
         wx.switchTab({
           url: '/pages/myhomework/main'
+        })
+      },
+      toAdderror () {
+        wx.navigateTo({
+          url: '/pages/errorMessage/main'
         })
       },
       toinfom () {

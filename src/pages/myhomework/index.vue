@@ -9,15 +9,15 @@
       .first-padding
         .d-flex.p-20p.border-bottom.pa( v-if="domain.length !== 0" v-for="(item, index) in domain" :key="index" @click="onChange(item)")
           //img( :src="item.cover.prefixUri + item.cover.relativePath" style="width:60px;height:60px")
-          img(:src="item.book.image" style="width:60px;height:60px")
+          //img(:src="item.book.image" style="width:60px;height:60px")
           .df-col-jb.flex-1.ml-20p
             .df-row-jb
-              .fs-16.flex-1(style="font-weight:bold") {{item.book.name}}
-              .fs-12.flex-1 {{item.library.name}}
+              .fs-16.flex-1(style="font-weight:bold") {{item.courseName}}
+              .fs-12.flex-1 {{item.teachName}}
             .df-row-jb.mt-10p.text-dark
-              .fs-14.flex-1.text-overflow2 {{item.library.address}}
+              .fs-14.flex-1.text-overflow2 {{item.content}}
               .fs-14.ml-10p(style="color:#0066CC" @click="deleteNotes(item)") 完成
-              .fs-14.ml-10p(style="color:#0066CC" @click="addNotes(item)") 上传文件
+              .fs-14.ml-10p(style="color:#0066CC" @click="addfile(item)") 上传文件
       .w-100.mt-50p(v-if="!user")
         .df-col-ac.p-20p
           .login-none
@@ -71,7 +71,7 @@
     },
     methods: {
       checkUser (e) {
-        loginInfo(e, this, this.getBooks)
+        loginInfo(e, this, this.gethomework)
       },
       deleteNotes (item) {
         API.mybooks.delete(item.id).then((res) => {
@@ -84,16 +84,20 @@
           url: '/pages/addNotes/main?bookId=' + item.bookId
         })
       },
+      addfile(){
+      },
       changeRange (e) {
         this.domain = []
         this.val1 = e.mp.detail
         this.checkLocation()
       },
-      getBooks () {
+      gethomework () {
         var params = {
-          userId: this.user.id
+          conditions: {
+            className: this.user.className
+          }
         }
-        API.mybooks.list(params).then((res) => {
+        API.homework.list(params).then((res) => {
           this.domain = res.data
         }).catch((err) => {
           console.log('error', err)
@@ -120,13 +124,10 @@
     mounted () {
     },
     onShow () {
-      this.filter = {ps: 10, p: 1}
-      this.total = 0
-      this.val1 = -1
       this.domain = []
       this.user = wx.getStorageSync('user')
       console.log('this.user', this.user)
-      this.getBooks()
+      this.gethomework()
       // 解决之前登录的用户没有session_key的问题
     }
   }

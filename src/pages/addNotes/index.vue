@@ -2,10 +2,10 @@
   .w-100
     nav-bar(:title="title" :back-visible="true" :home-path="'/pages/index/main'")
     van-cell-group
-      van-field(required clearable label="书名" placeholder="输入书名" v-model="notes.bookName" @change="handlebookname" :error-message="errMessage.name")
-      van-field( clearable label="作者"  placeholder="请输入作者" v-model="notes.bookAuthor" @blur="handlebookAuthor" )
-      van-field( clearable label="主题"  placeholder="请输入主题" v-model="notes.title" @change="handleTheme")
-      van-field(clearable label="内容"   v-model="notes.desc" @change="handleDesc"  type='textarea', placeholder='请输入内容', autosize='true', border='')
+      van-field(required clearable label="标题" placeholder="输入标题" v-model="notes.title" @change="handleTheme" :error-message="errMessage.name")
+      van-field( clearable label="书名"  placeholder="请输入书名" v-model="notes.bookName" @change="handlebookname" )
+      van-field( clearable label="作者"  placeholder="请输入作者" v-model="notes.bookAuthor" @change="handlebookAuthor")
+      van-field(clearable label="内容"   v-model="notes.notesDesc" @change="handleDesc"  type='textarea', placeholder='请输入内容', autosize='true', border='')
     .mt-20p.w-90.m-auto
       van-button(size="large" round custom-class="btn-black" @click="onSave") 保存
 
@@ -47,13 +47,11 @@
         this.notes.title = event.mp.detail
       },
       handleDesc (event) {
-        this.notes.desc = event.mp.detail
+        this.notes.notesDesc = event.mp.detail
       },
       getBook (id) {
         API.books.get(id).then((res) => {
-          debugger
-          this.notes.bookName = res.name
-          this.notes.bookAuthor = res.author
+          this.notes = res.data
         }).catch((err) => {
           console.log(err)
         })
@@ -63,7 +61,7 @@
       },
       loadUser (id) {
         API.user.get(id).then((res) => {
-          this.user = res
+          this.user = res.data
           console.log('this.user', this.user)
         }).catch(() => {
         })
@@ -85,7 +83,7 @@
       getNotes (id) {
         API.notes.get(id).then((res) => {
           this.title = '查看/修改学习笔记'
-          this.notes = res
+          this.notes = res.data
         }).catch(() => {
         })
       }
@@ -100,12 +98,9 @@
       }
     },
     onShow () {
-      if (this.$root.$mp.query.bookId) {
-        this.getBook(this.$root.$mp.query.bookId)
-      } else {
-        if (this.$root.$mp.query.notesId) {
-          this.getNotes(this.$root.$mp.query.notesId)
-        }
+      this.notes = {}
+      if (this.$root.$mp.query.notesId) {
+        this.getNotes(this.$root.$mp.query.notesId)
       }
     }
   }

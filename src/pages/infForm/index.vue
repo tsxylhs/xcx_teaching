@@ -2,13 +2,13 @@
   .w-100
     nav-bar(:title="'绑定学号'" :back-visible="true" :home-path="'/pages/index/main'")
     van-cell-group
-      van-field(required clearable label="姓名" placeholder="输入姓名" v-model="user.username" @change="handleUsername" :error-message="errMessage.name")
+      van-field( clearable label="昵称"  placeholder="请输入你的学号" :disable="true" v-model="user.nickName"  @change="handlenickName")
+      van-field(required clearable label="姓名" placeholder="输入姓名" v-model="user.userName" @change="handleUserName" :error-message="errMessage.name")
       van-field( clearable label="学号"  placeholder="请输入你的学号" v-model="user.studentId" @change="handleStudent")
-      van-field( clearable label="班级"  placeholder="请输入你的院校" v-model="user.calss" @change="handleClass")
+      van-field( clearable label="班级"  placeholder="请输入你的班级" v-model="user.className" @change="handleClass")
+      van-field( clearable label="联系电话"  placeholder="请输入你的联系电话" v-model="user.mobile" @change="handleMobile")
     .mt-20p.w-90.m-auto
       van-button(size="large" round custom-class="btn-black" @click="onSave") 绑定
-    van-popup(:show='show', position='bottom', overlay='false', @close='onClose' safe-area-inset-top="true" custom-style="height: 50% !important")
-      van-area(:area-list="areaList" @confirm="confirm" @cancel="onClose")
 
 </template>
 
@@ -51,31 +51,32 @@
         this.show = false
         this.user.region = areaName
       },
-      handleUsername (event) {
-        this.user.username = event.mp.detail
-        if (!this.user.username) {
-          this.errMessage.name = '昵称不能为空'
-          return true
-        } else {
-          this.errMessage.name = ''
-        }
-      },
+
       handleStudent (event) {
         this.user.studentId = event.mp.detail
       },
       handleClass (event) {
-        this.user.email = event.mp.detail
+        this.user.className = event.mp.detail
+      },
+      handleUserName (event) {
+        this.user.userName = event.mp.detail
+      },
+      handleMobile (event) {
+        this.user.mobile = event.mp.detail
+      },
+      handlenickName (event) {
+        this.user.nickName = event.mp.detail
       },
       loadUser (id) {
-        API.user.get(id).then((res) => {
-          this.user = res
+        API.wxUser.get(id).then((res) => {
+          this.user = res.data
           console.log('this.user', this.user)
         }).catch(() => {
         })
       },
       onSave () {
-        API.user.update(this.user).then((res) => {
-          wx.setStorageSync('user', res)
+        API.wxUser.update(this.user).then((res) => {
+          wx.setStorageSync('user', res.data)
           wx.navigateTo({
             url: '/pages/user/main'
           })
@@ -83,11 +84,11 @@
         })
       }
     },
-    mounted () {
-      this.loadUser(this.$root.$mp.query.userId)
-    },
     onLoad () {
-      this.loadUser(this.$root.$mp.query.userId)
+      this.user = wx.getStorageSync('user')
+      if (this.user) {
+        this.loadUser(this.user.id)
+      }
     }
   }
 </script>
