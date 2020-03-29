@@ -162,7 +162,7 @@
             console.log(res.result)
             var sigins = res.result.split('&')
             var signinss = wx.getStorageSync('signin')
-            if (signinss.courseName === sigins[0]) {
+            if (signinss.crouseName === sigins[0]) {
               signinss.endSignin = new Date()
               API.signin.update(signinss).then((res) => {
                 wx.removeStorageSync('signin')
@@ -182,7 +182,7 @@
           success (res) {
             console.log(res.result)
             var sigins = res.result.split('&')
-            that.signin.courseName = sigins[0]
+            that.signin.crouseName = sigins[0]
             that.signin.teachName = sigins[1]
             that.qrFlag = true
           }
