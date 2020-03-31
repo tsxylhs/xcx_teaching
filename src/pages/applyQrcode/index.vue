@@ -97,7 +97,7 @@
       this.getlibrarys()
     },
     onShow () {
-      this.image = '../../static/images/show.png'
+      this.image = 'http://www.lncios.cn/show.png'
       this.user = wx.getStorageSync('user')
       this.getlibrarys()
     }

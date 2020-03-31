@@ -9,7 +9,7 @@ API.wxUser = crud('/wxUser')
 API.wxError = crud('/errormessage')
 API.remind = crud('/remind')
 API.signin = crud('/signin')
-
+API.materials = crud('/materials')
 API.library = crud('/v1/library')
 API.books = crud('/v1/book')
 API.table = crud('/v1/table')

@@ -1,11 +1,8 @@
 <template lang="pug">
   .w-100
-    nav-bar(:title="'我的成绩'" :backVisible="true" :home-path="'/pages/index/main'")
-    .w-100(v-if="isLogged")
-      .df-col-ac-jc.text-dark(v-if="epOrder||!bind" style="margin-top: 200rpx;")
-        .ep-order
-        .mt-10p.mr-20p 还没有成绩或者未绑定信息
-      ul.last-border-2(v-if="!epOrder")
+    nav-bar(:title="'学习资料'" :backVisible="true" :home-path="'/pages/index/main'")
+    .w-100
+      ul.last-border-2
         li.pl-20p.py-20p(@click="" v-for="(ord,ins) in domain" :key="ins")
           .df-row-ac-jb.pr-20p
             .df-row-ac
@@ -14,26 +11,10 @@
           .mt-10p.d-flex.pr-20p.border-bottom.py-10p
             .ml-10p.py-5p.flex-1
               .df-row-jb.pf-subhead
-                .pf-subhead 学科：{{ord.courseName}}
-                .ml-20p
-                  div
-                    span 总成绩: {{ord.grades}}
-                  div.fr.text-dark.fs-12
-                    span 代课老师 {{ord.teachName}}
+                .pf-subhead 资料名称：{{ord.materialsDesc}}
               .d-flex.fs-12.mt-10p.text-dark
-                span 考试成绩:
-                span.ml-5p {{ord.testScores}}
-              .d-flex.fs-12.mt-10p.text-dark
-                span 签到成绩:
-                span.ml-5p {{ord.signin}}
-              .df-row-ac.fs-12.text-dark.mt-5p
-                span 课堂表现成绩:
-                span.ml-5p {{ord.showGrades}}
-    .w-100.mt-50p(v-else)
-      .df-col-ac.p-20p
-        .login-none
-        .mt-10p 请先登录，以查看成绩。
-        button.btn-main.mt-10p( open-type="getUserInfo" @getuserinfo="checkUser" lang="zh_CN" type="primary" round @click="checkUser") 微信授权登录
+                span 位置:
+                span.ml-5p {{ord.materialsUrl}}
 
 </template>
 
@@ -87,7 +68,7 @@
             userId: this.user.studentId
           }
         }
-        API.grade.list(param).then(res => {
+        API.materials.list(param).then(res => {
           this.isLogged = true
           if (res.data === undefined || res.data.length <= 0) {
             this.epOrder = true

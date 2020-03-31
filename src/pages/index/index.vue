@@ -48,10 +48,10 @@
         .df-col-ac.pointer(@click="tohomework()")
           .order1
           .text-dark.mt-2 作业
-        .df-col-ac.pointer(@click="scanQrCode")
+        .df-col-ac.pointer(@click="tomaterials")
           .order4
           .text-dark.mt-2 资料
-        .df-col-ac.pointer(@click="toOrder(4)")
+        .df-col-ac.pointer(@click="")
           .order3
           .text-dark.mt-2 提醒(待实现)
 
@@ -64,7 +64,7 @@
         van-button.mt-10p(size="large" round custom-class="btn-blue" @click="submint") 添加计划
     van-popup(:show="qrFlag", position="center",overlay="false", @close="applyClose" safe-area-inset-top="true" custom-style="width: 95%;height: 180px;border-radius: 10px !important;")
       .p-20p.van-border.bg-dark 信息
-        van-field(required clearable label="课程" placeholder="输入标题" v-model="signin.courseName"  )
+        van-field(required clearable label="课程" placeholder="输入标题" v-model="signin.crouseName"  )
         van-field( clearable label="教师"  placeholder="请输入简述" v-model="signin.teachName")
         van-button.mt-10p(size="large" round custom-class="btn-blue" @click="submintsignin") 签到
     van-toast#van-toast
@@ -162,9 +162,11 @@
             console.log(res.result)
             var sigins = res.result.split('&')
             var signinss = wx.getStorageSync('signin')
-            if (signinss.crouseName === sigins[0]) {
+            debugger
+            if (signinss.crouseName === sigins[1]) {
               signinss.endSignin = new Date()
               API.signin.update(signinss).then((res) => {
+                Toast('签退成功！')
                 wx.removeStorageSync('signin')
                 this.flag = false
                 Toast('签退成功！')
@@ -182,8 +184,8 @@
           success (res) {
             console.log(res.result)
             var sigins = res.result.split('&')
-            that.signin.crouseName = sigins[0]
-            that.signin.teachName = sigins[1]
+            that.signin.crouseName = sigins[1]
+            that.signin.teachName = sigins[0]
             that.qrFlag = true
           }
         })
@@ -214,6 +216,11 @@
       },
       handlecontent (event) {
         this.remind.content = event.mp.detail
+      },
+      tomaterials () {
+        wx.navigateTo({
+          url: '/pages/materials/main'
+        })
       },
       totest () {
         wx.navigateTo({

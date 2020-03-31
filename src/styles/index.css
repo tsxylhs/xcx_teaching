@@ -845,7 +845,7 @@ button {
 .bind-res {
   width: 300px;
   height: 120px;
-  background: url("../../static/images/bind_res.jpg") no-repeat 50%;
+  background: url("http://www.lncios.cn/bind_res.jpg") no-repeat 50%;
   background-size: cover;
 }
 
