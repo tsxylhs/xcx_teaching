@@ -4,17 +4,12 @@
     "pages/addNotes/main",
     "pages/about/main",
     "pages/notes/main",
-    "pages/applyQrcode/main",
-    "pages/kind/main",
     "pages/user/main",
-    "pages/appointment/main",
-    "pages/queue/main",
     "pages/test/main",
     "pages/materials/main",
     "pages/grade/main",
     "pages/myhomework/main",
     "pages/errorMessage/main",
-    "pages/queueOrderList/main",
     "pages/infForm/main"
   ],
   "window": {

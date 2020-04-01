@@ -15,7 +15,8 @@
               .d-flex.fs-12.mt-10p.text-dark
                 span 位置:
                 span.ml-5p {{ord.materialsUrl}}
-
+              .d-flex.fs-12.mt-10p.text-dark
+                .fs-14.mr-10p(style="color:#0066CC" @click="download(ord)") 下载资料
 </template>
 
 <script>
@@ -46,7 +47,92 @@
     },
     watch: {},
     methods: {
-
+      download (val) {
+        wx.downloadFile({
+          url: 'http://localhost:8081/materials/download/' + val.id,
+          success: function (res) {
+            var filePath = res.tempFilePath
+            console.log(res)
+            wx.openDocument({
+              filePath: filePath,
+              success: function (res) {
+                console.log('打开文档成功')
+              },
+              fail: function (err) {
+                console.log(err)
+              }
+            })
+          }
+        })
+      },
+      savefiles (val) {
+        const fileName = val.materialsDesc
+        let $this = this
+        wx.downloadFile({
+          url: 'http://localhost:8081/materials/download/' + val.id,
+          success: (res) => {
+            var filePath = res.tempFilePath
+            let manager = wx.getFileSystemManager()
+            // 判断目录是否存在
+            manager.access({
+              path: `${wx.env.USER_DATA_PATH}/download`,
+              success: (res) => {
+                // console.log('已存在path对应目录',res)
+                // 保存文件之前查看是否存在此文件
+                manager.access({
+                  path: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
+                  success (res) {
+                    // console.log('已存在此文件', res);
+                    return false
+                  },
+                  // eslint-disable-next-line handle-callback-err
+                  fail (err) {
+                    console.log('不存在此文件')
+                    manager.saveFile({
+                      tempFilePath: filePath,
+                      filePath: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
+                      success: (res) => {
+                        $this.getLocalFiles(manager, $this)
+                      },
+                      fail: (err) => {
+                        console.log(err)
+                      }
+                    })
+                  }
+                })
+              },
+              fail: () => {
+                // console.log(err, '不存在path对应目录')
+                // 创建保存文件的目录
+                manager.mkdir({
+                  dirPath: `${wx.env.USER_DATA_PATH}/download`,
+                  recursive: false,
+                  success: (res) => {
+                    // 将临时文件保存到目录  / download
+                    manager.saveFile({
+                      tempFilePath: filePath,
+                      filePath: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
+                      success: (res) => {
+                        // console.log(res)
+                        $this.getLocalFiles(manager, $this)
+                      },
+                      fail: (err) => {
+                        console.log(err)
+                      }
+                    })
+                  },
+                  fail: (err) => {
+                    console.log(err)
+                  }
+                })
+              }
+            })
+          },
+          fail: (err) => {
+            console.log(err, '下载失败')
+          }
+        })
+      },
       toaddnotes () {
         wx.navigateTo({url: '/pages/addNotes/main'})
       },
