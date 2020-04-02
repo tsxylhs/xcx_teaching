@@ -135,8 +135,11 @@
       callFail (e) {
 
       },
-      loginout(){
-        wx.removeStorageSync('signin')
+      loginout () {
+        wx.removeStorageSync('user')
+        wx.switchTab({
+          url: '/pages/index/main'
+        })
       },
       scanQrCode () {
         wx.scanCode({
