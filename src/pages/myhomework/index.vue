@@ -19,6 +19,7 @@
               .fs-14.ml-10p(v-if="item.status!=='finshed'" style="color:#0066CC" @click="deleteNotes(item)") 完成
               .fs-14.ml-10p(v-if="item.status!=='finshed'" style="color:#0066CC" @click="choose(item)") 上传文件
               .fs-14.ml-10p(v-if="item.status==='finshed'" style="color:#0066CC") 已完成
+              .fs-14.ml-10p(v-if="item.status==='finshed'" style="color:#0066CC" @click="downloadhomework(item)") 下载我的作业
       .w-100.mt-50p(v-if="!user")
         .df-col-ac.p-20p
           .login-none
@@ -36,6 +37,7 @@
   import API from '@/api/api'
   import {loginInfo} from '../../utils/login'
   // import {loginInfo} from '../../utils/login'
+  import Toast from '../../../static/vant/toast/toast'
 
   export default {
     components: {
@@ -71,6 +73,75 @@
       }
     },
     methods: {
+      downloadhomework(item){
+        const fileName =item.content
+        let $this = this
+        wx.downloadFile({
+          url: 'http://localhost:8081/myhomwork/download/' + item.id,
+          success: (res) => {
+            var filePath = res.tempFilePath
+            let manager = wx.getFileSystemManager()
+            // 判断目录是否存在
+            manager.access({
+              path: `${wx.env.USER_DATA_PATH}/download`,
+              success: (res) => {
+                // console.log('已存在path对应目录',res)
+                // 保存文件之前查看是否存在此文件
+                manager.access({
+                  path: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
+                  success (res) {
+                    // console.log('已存在此文件', res);
+                    return false
+                  },
+                  // eslint-disable-next-line handle-callback-err
+                  fail (err) {
+                    console.log('不存在此文件')
+                    manager.saveFile({
+                      tempFilePath: filePath,
+                      filePath: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
+                      success: (res) => {
+                        $this.getLocalFiles(manager, $this)
+                      },
+                      fail: (err) => {
+                        console.log(err)
+                      }
+                    })
+                  }
+                })
+              },
+              fail: () => {
+                // console.log(err, '不存在path对应目录')
+                // 创建保存文件的目录
+                manager.mkdir({
+                  dirPath: `${wx.env.USER_DATA_PATH}/download`,
+                  recursive: false,
+                  success: (res) => {
+                    // 将临时文件保存到目录  / download
+                    manager.saveFile({
+                      tempFilePath: filePath,
+                      filePath: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
+                      success: (res) => {
+                        // console.log(res)
+                        $this.getLocalFiles(manager, $this)
+                      },
+                      fail: (err) => {
+                        console.log(err)
+                      }
+                    })
+                  },
+                  fail: (err) => {
+                    console.log(err)
+                  }
+                })
+              }
+            })
+          },
+          fail: (err) => {
+            console.log(err, '下载失败')
+          }
+        })
+
+      },
       checkUser (e) {
         loginInfo(e, this, this.gethomework)
       },
@@ -97,10 +168,13 @@
           count: 1, // 默认9
           type: 'file',
           success: function (res) {
-            debugger
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            var tempFilePaths = res.tempFiles
-            that.addfile(tempFilePaths, val)
+            if (res.tempFiles[0].indexOf('doc')) {
+              var tempFilePaths = res.tempFiles
+              that.addfile(tempFilePaths, val)
+            } else {
+              Toast('只能上传doc文档')
+            }
           }
         })
       },
@@ -120,7 +194,7 @@
           },
           success: function (res) {
             debugger
-            console.log('上传成功')
+            Toast('上传成功')
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
             // that.files = that.files.concat(imgPath[i])
             // console.log(res.data)// 合并图片显示数组
@@ -155,16 +229,13 @@
         }
         API.homework.list(params).then((res) => {
           this.domain = res.data
-          var homeworked = wx.getStorageSync('homeworked')
+          var user = wx.getStorageSync('user')
           this.domain.forEach((res) => {
-            homeworked.forEach((r) => {
-              debugger
-              if (res.id === r) {
-                res.status = 'finshed'
-              } else {
-                res.status = 'finshing'
-              }
-            })
+            if (res.userIds.indexOf(user.id + '')) {
+              res.status = 'finshed'
+            } else {
+              res.status = 'finshing'
+            }
           })
         }).catch((err) => {
           console.log('error', err)

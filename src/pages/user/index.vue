@@ -48,6 +48,12 @@
             .customer
             span.ml-10p.fs-16 提交错误日志及意见
           .arrow.pr-20p
+      .pl-20p
+        .df-row-ac-jb.py-20p.border-bottom(@click="loginout")
+          .df-row-ac
+            .customer
+            span.ml-10p.fs-16 退出微信
+          .arrow.pr-20p
     van-toast#van-toast
 </template>
 <script>
@@ -128,6 +134,9 @@
       },
       callFail (e) {
 
+      },
+      loginout(){
+        wx.removeStorageSync('signin')
       },
       scanQrCode () {
         wx.scanCode({
