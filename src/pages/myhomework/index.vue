@@ -1,26 +1,26 @@
 <template lang="pug">
   .w-100
     nav-bar(title="我的作业" :backVisible="true" :home-path="'/pages/index/main'")
-    .p-10p
-
-      .mt-20p.df-col-ac-jc(v-if="domain.length === 0&&user")
-        span 暂无作业
-        span 好好学习，天天向上
-      .first-padding
-        .d-flex.p-20p.border-bottom.pa( v-if="domain.length !== 0" v-for="(item, index) in domain" :key="index" )
-          //img( :src="item.cover.prefixUri + item.cover.relativePath" style="width:60px;height:60px")
-          //img(:src="item.book.image" style="width:60px;height:60px")
-          .df-col-jb.flex-1.ml-20p
-            .df-row-jb
-              .fs-16.flex-1(style="font-weight:bold") {{item.courseName}}
-              .fs-12.flex-1 {{item.teachName}}
-            .df-row-jb.mt-10p.text-dark
-              .fs-14.flex-1.text-overflow2 {{item.content}}
-              .fs-14.ml-10p(v-if="item.status!=='finshed'" style="color:#0066CC" @click="deleteNotes(item)") 完成
-              .fs-14.ml-10p(v-if="item.status!=='finshed'" style="color:#0066CC" @click="choose(item)") 上传文件
-              .fs-14.ml-10p(v-if="item.status==='finshed'" style="color:#0066CC") 已完成
-              .fs-14.ml-10p(v-if="item.status==='finshed'" style="color:#0066CC" @click="downloadhomework(item)") 下载我的作业
-      .w-100.mt-50p(v-if="!user")
+    .p-10p()
+      div(v-if="user")
+        .mt-20p.df-col-ac-jc(v-if="domain.length === 0&&user")
+          span 暂无作业
+          span 好好学习，天天向上
+        .first-padding
+          .d-flex.p-20p.border-bottom.pa( v-if="domain.length !== 0" v-for="(item, index) in domain" :key="index" )
+            //img( :src="item.cover.prefixUri + item.cover.relativePath" style="width:60px;height:60px")
+            //img(:src="item.book.image" style="width:60px;height:60px")
+            .df-col-jb.flex-1.ml-20p
+              .df-row-jb
+                .fs-16.flex-1(style="font-weight:bold") {{item.courseName}}
+                .fs-12.flex-1 {{item.teachName}}
+              .df-row-jb.mt-10p.text-dark
+                .fs-14.flex-1.text-overflow2 {{item.content}}
+                .fs-14.ml-10p(v-if="item.status!=='finshed'" style="color:#0066CC" @click="deleteNotes(item)") 完成
+                .fs-14.ml-10p(v-if="item.status!=='finshed'" style="color:#0066CC" @click="choose(item)") 上传文件
+                .fs-14.ml-10p(v-if="item.status==='finshed'" style="color:#0066CC") 已完成
+                .fs-14.ml-10p(v-if="item.status==='finshed'" style="color:#0066CC" @click="downloadhomework(item)") 下载我的作业
+      .w-100.mt-50p(v-else)
         .df-col-ac.p-20p
           .login-none
           .mt-10p 请先登录，以查看作业。
@@ -73,66 +73,20 @@
       }
     },
     methods: {
-      downloadhomework(item){
-        const fileName =item.content
-        let $this = this
+      downloadhomework (item) {
+        // const fileName = item.content
         wx.downloadFile({
-          url: 'http://localhost:8081/myhomwork/download/' + item.id,
+          url: 'http://localhost:8081/myhomework/download/' + item.id,
           success: (res) => {
             var filePath = res.tempFilePath
-            let manager = wx.getFileSystemManager()
-            // 判断目录是否存在
-            manager.access({
-              path: `${wx.env.USER_DATA_PATH}/download`,
-              success: (res) => {
-                // console.log('已存在path对应目录',res)
-                // 保存文件之前查看是否存在此文件
-                manager.access({
-                  path: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
-                  success (res) {
-                    // console.log('已存在此文件', res);
-                    return false
-                  },
-                  // eslint-disable-next-line handle-callback-err
-                  fail (err) {
-                    console.log('不存在此文件')
-                    manager.saveFile({
-                      tempFilePath: filePath,
-                      filePath: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
-                      success: (res) => {
-                        $this.getLocalFiles(manager, $this)
-                      },
-                      fail: (err) => {
-                        console.log(err)
-                      }
-                    })
-                  }
-                })
+            console.log(res)
+            wx.openDocument({
+              filePath: filePath,
+              success: function (res) {
+                console.log('打开文档成功')
               },
-              fail: () => {
-                // console.log(err, '不存在path对应目录')
-                // 创建保存文件的目录
-                manager.mkdir({
-                  dirPath: `${wx.env.USER_DATA_PATH}/download`,
-                  recursive: false,
-                  success: (res) => {
-                    // 将临时文件保存到目录  / download
-                    manager.saveFile({
-                      tempFilePath: filePath,
-                      filePath: `${wx.env.USER_DATA_PATH}/download/${fileName}`,
-                      success: (res) => {
-                        // console.log(res)
-                        $this.getLocalFiles(manager, $this)
-                      },
-                      fail: (err) => {
-                        console.log(err)
-                      }
-                    })
-                  },
-                  fail: (err) => {
-                    console.log(err)
-                  }
-                })
+              fail: function (err) {
+                console.log(err)
               }
             })
           },
@@ -140,7 +94,6 @@
             console.log(err, '下载失败')
           }
         })
-
       },
       checkUser (e) {
         loginInfo(e, this, this.gethomework)
@@ -159,7 +112,7 @@
       },
       addNotes (item) {
         wx.navigateTo({
-          url: '/pages/addNotes/main?bookId=' + item.bookId
+          // url: '/pages/addNotes/main?bookId=' + item.bookId
         })
       },
       choose (val) {
@@ -169,16 +122,19 @@
           type: 'file',
           success: function (res) {
             // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            if (res.tempFiles[0].indexOf('doc')) {
+            console.log(res.tempFiles[0].name)
+            debugger
+            var name = res.tempFiles[0].name
+            if (name.indexOf('doc') !== -1) {
               var tempFilePaths = res.tempFiles
-              that.addfile(tempFilePaths, val)
+              that.addfile(tempFilePaths, val, name)
             } else {
               Toast('只能上传doc文档')
             }
           }
         })
       },
-      addfile (imgPath, val) {
+      addfile (imgPath, val, name) {
         let that = this
         // 上传文件
         wx.uploadFile({
@@ -189,15 +145,14 @@
             'Content-Type': 'multipart/form-data'
           },
           formData: {
+            'name': name,
             'userId': that.user.id,
             'homeworkId': val.id
           },
           success: function (res) {
             debugger
             Toast('上传成功')
-            // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-            // that.files = that.files.concat(imgPath[i])
-            // console.log(res.data)// 合并图片显示数组
+            that.gethomework()
           },
           fail: function (err) {
             debugger
@@ -231,7 +186,7 @@
           this.domain = res.data
           var user = wx.getStorageSync('user')
           this.domain.forEach((res) => {
-            if (res.userIds.indexOf(user.id + '')) {
+            if (res.userIds.indexOf(user.id + '') !== -1) {
               res.status = 'finshed'
             } else {
               res.status = 'finshing'
