@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mpvue": "^2.0.0",
     "timetables": "^1.1.0",
     "vant-weapp": "^0.4.10",
